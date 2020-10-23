@@ -84,7 +84,7 @@ function login(req, res) {
 }
 //Vamos a buscar un usuario para chatear con él o ella
 function get_user(req, res){
-
+    let id = req.params['id']; //Estoy guardando el id que estoy buscando 
         User.findById(id, (err, user)=>{
             if (err) {
                 res.status(500).send({message: 'Error en el servidor'})
