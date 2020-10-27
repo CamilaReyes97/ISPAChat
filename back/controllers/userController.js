@@ -98,9 +98,54 @@ function get_user(req, res){
         })
 }
 
+function get_users(req, res){
+User.find((err, users)=>{
+    if (err) {
+        res.status(500).send({message: 'Error en el servidor'});
+    } else {
+        if (users) { //si hay usuarios registrados
+            res.status(200).send({users:users})
+            //de los usuarios muestreme los usuarios
+        } else {
+            res.status(500).send({message: 'No existe ningun usuario'})
+        }
+    }
+})
+}
+
+
+function update_foto(req, res){
+    let id=req.params['id']; //capturamos el id donde se va a guardar la foto
+
+    if (req.files.imagen) { //si esta cargando una imagen
+
+        let imagen_path= req.files.imagen.path; //vamos a guardar la imagen en la ruta
+
+        let name= imagen_path.split('\\'); //Separamos la ruta donde se encuentra la imagen parfa solo extraer su nombre
+        let imagen_name= name[2]; //uploads/perfiles/nombreimagen
+
+        User.findByIdAndUpdate(id, {imagen: imagen_name}, function(err,user_update){
+            if (err) {
+                res.status(500).send({message: 'Error en el servidor'})
+            } else {
+                if (user_update) { //si el usuario es actualizado correctamente
+                    res.status(200).send({user: user_update}) //me devuelva el usuario actualizado
+                } else {
+                    res.status(500).send({message: 'No se encontro el usuario'})
+                }
+            }
+        })
+        
+    }else{
+        res.status(404).send({message: 'No se cargo ninguna imagen'})
+    }
+}
+
 
 module.exports={
     registrar,
     login,
-    get_user
+    get_user,
+    get_users, //la exportamos
+    update_foto
 }
