@@ -10,7 +10,7 @@ var express= require("express");
 var app= express() //Llamo la funcion de express
 
 var user_routes= require('./routes/user') //Llamamos el archivo de nuestras rutas
-
+var message_routes= require('./routes/message') //llamamos las rutas
 
 
 
@@ -40,7 +40,7 @@ app.use(bodyparser.urlencoded({extended: true})) //Aqui viaja el cuerpo de la pe
 app.use(bodyparser.json()) //Le decimos que el formato de envio de datos va a ser un JSON
 
 app.use('/api', user_routes ) //Que en nuestra aplicacion vamos a utilizar esas rutas
-
+app.use('/api', message_routes)
 module.exports=app;
 
 
