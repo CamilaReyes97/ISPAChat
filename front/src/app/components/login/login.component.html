@@ -1,0 +1,50 @@
+<div class="layout">
+
+    <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center no-gutters min-vh-100">
+
+            <div class="col-12 col-md-5 col-lg-4 py-8 py-md-11">
+
+                <!-- Heading -->
+                <h1 class="font-bold text-center">Iniciar sesión </h1>
+
+                <!-- Text -->
+                <p class="text-center mb-6">Bienvenidos al chat de ISPA.</p>
+
+                <!-- Form, colocamos el ng serve-->
+                <form class="mb-6" #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email" class="sr-only">Correo</label>
+                        <input type="email" class="form-control form-control-lg" id="email" placeholder="Ingrese su correo" #email="ngModel" name="email" [(ngModel)]="user.email" required>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label for="password" class="sr-only">Contraseña</label>
+                        <input type="password" class="form-control form-control-lg" id="password" placeholder="Ingrese su contraseña" #password="ngModel" name="password" [(ngModel)]="user.password" required>
+                    </div>
+
+                    <div class="form-group d-flex justify-content-between">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" checked="" id="checkbox-remember">
+                            <label class="custom-control-label" for="checkbox-remember">Recuerdame</label>
+                        </div>
+                        <a href="./password-reset.html">Cambiar contraseña</a>
+                    </div>
+
+                    <!-- Submit -->
+                    <button class="btn btn-lg btn-block btn-primary" type="submit">Ingresar</button>
+                </form>
+
+                <!-- Text -->
+                <p class="text-center">
+                    No tienes una cuenta? <a [routerLink]="['/registro']" >Registrar</a>. <!-- Enrutamos el formulario de registro -->
+                </p>
+
+            </div>
+        </div> <!-- / .row -->
+    </div>
+
+</div><!-- .layout -->
+

@@ -11,6 +11,8 @@ app.post('/registrar', userController.registrar) //Creamos la ruta que nos permi
 app.post('/login', userController.login) //Creamos la ruta login
 app.get('/usuario/:id', userController.get_user) //Creamos la ruta para traer la informacion de esa persona
 app.get('/usuarios', userController.get_users) // Ruta para traer todos los chats
+app.put('/usuario/activar/:id', userController.activar_estado)
+app.put('/usuario/desactivar/:id', userController.desactivar_estado)
 app.put('/usuario/editar/imagen/:id', path, userController.update_foto)
 app.get('/usuario/img/:img', userController.get_img); //creamos la ruta con la cual vamos a traer la imagen
 app.put('/usuario/editar/:id', path, userController.editar_config)

@@ -113,6 +113,40 @@ function get_users(req, res) {
     })
 }
 
+function activar_estado(req,res){
+    var id = req.params['id'];
+
+    User.findByIdAndUpdate(id,{estado:true},(err,user_update) =>{
+        if (err) {
+            res.status(500).send({message:"Error en el servidor"});
+        } else {
+            if(user_update){
+                res.status(200).send({user: user_update});
+            }else{
+                res.status(500).send({message:"Usuario no encontrado"});
+            }
+        }
+
+    })
+}
+
+function desactivar_estado(req,res){
+    var id = req.params['id'];
+
+    User.findByIdAndUpdate(id,{estado:false},(err,user_update) =>{
+        if (err) {
+            res.status(500).send({message:"Error en el servidor"});
+        } else {
+            if (user_update) {
+                res.status(200).send({user: user_update}); 
+            } else {
+                res.status(500).send({message:"Usuario no encontrado"});
+            }
+        }
+
+    })
+}
+
 
 function update_foto(req, res) {
     let id = req.params['id']; //capturamos el id donde se va a guardar la foto
@@ -162,7 +196,7 @@ function editar_config(req, res) {
     var data = req.body;
     /* VAN A VER 2 TIPOS DE ACTUALIZACIONES, UNA CUANDO SE ACTUALIZA CON IMAGEN Y OTRA SIN IMAGEN */
 
-    if (req.files) { //Si hay una imagen si hay contraseña
+    if (req.files.imagen) { //Si hay una imagen si hay contraseña
         //vamos a validar si manda una contraseña
         if (data.password) {
             console.log('1') //opcion 1
@@ -236,5 +270,7 @@ module.exports = {
     get_users, //la exportamos
     update_foto,
     get_img,
-    editar_config
+    editar_config,
+    activar_estado,
+    desactivar_estado
 }
