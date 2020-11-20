@@ -24,18 +24,18 @@ io.on('connection', function(socket){
     console.log('User connected');
     socket.on('disconnect', function() {
         console.log('User disconnected');
-    });
+    }); /* Me permite saber cuando el usuario esta conectado */
     socket.on('save-message', function (new_msm) {
         io.emit('new-message', { message: new_msm });
-    });
+    }); /* Almacena el mensaje, transmite el mensaje en tiempo real */
     
     socket.on('save-user', function (user) {
         io.emit('new-user', {user:user});
-    });
+    }); /* Guarda el registro y me indica que hay un nuevo usuario */
 
     socket.on('save-users', function (users) {
         io.emit('new-users', {users});
-    });
+    }); /* Trae la informacion del usuarios */
 })
 
 //Conexion a la BD, primero la url donde mongo funciona,
@@ -54,17 +54,17 @@ app.use(bodyparser.urlencoded({extended: true})) //Aqui viaja el cuerpo de la pe
 app.use(bodyparser.json()) //Le decimos que el formato de envio de datos va a ser un JSON
 
 app.use((req, res, next) => {
-    res.header('Content-Type: application/json');
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Content-Type: application/json'); /* La informacion viaja en formato JSON */
+    res.header('Access-Control-Allow-Origin', '*'); /* puede traer toda la informacion */
     res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Access-Control-Allow-Request-Method');
     res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-    res.header('Allow', 'GET, PUT, POST, DELETE, OPTIONS');
-    next();
+    res.header('Allow', 'GET, PUT, POST, DELETE, OPTIONS'); /* Puedo enviar y recibir informacion */
+    next(); /* Continua con las demas funciones */
 });
 
 app.listen(80, function () {
     console.log('CORS-enabled web server listening on port 80')
-});
+}); /* Libreria CORS- SE ENCARGA DE DAR PERMISO Y PODER UTILIZAR LA API, 'GET, PUT, POST, DELETE*/
   
 
 

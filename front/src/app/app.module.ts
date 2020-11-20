@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module'; //Importamos el enrutad
 import { AppComponent } from './app.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
-import { appRoutingProviders, routing } from './app.routing';
+import { appRoutingProviders, routing } from './app.routing'; //El archivo de rutas de la aplicacion
 import { MessengerComponent } from './components/messenger/messenger.component';
 import { PerfilComponent } from './components/perfil/perfil.component'; //Importamos el el routing que creamos
 
@@ -22,10 +22,10 @@ import { PerfilComponent } from './components/perfil/perfil.component'; //Import
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, //Lo agregamos a imports
-    routing, //Tambien lo importamos aqui
-    FormsModule, //igualmente los otros
-    HttpClientModule //y este
+    AppRoutingModule, //Me permite crear las rutas
+    routing, //las rutas que ya creamos
+    FormsModule, //Me permite trabajar con formularios
+    HttpClientModule // GET, PUT, DELETE,POST- Me permite usarlos
   ],
   providers: [],
   bootstrap: [AppComponent]

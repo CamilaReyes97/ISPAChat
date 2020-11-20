@@ -11,13 +11,13 @@ import { User } from "../models/User"; //Importamos nuestro modelo, el cual estr
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserService { //Un clase almacena varias funciones
   public url; //variable publica que inicializaremos en el constructor
   public token; //creamos la variables donde se almacenaran los datos del localstorage
-  public identity;
+  public identity; //Vamos a guardar los datos de quien inicio sesion
 
   constructor( //Vamos a instanciar el HttpClient
-    private _http : HttpClient
+    private _http : HttpClient //es privada para que la informacion no se vea en la url
 
   ) { 
     this.url= GLOBAL.url; //esta es la cadena de conexion para nuestro back
@@ -33,16 +33,16 @@ export class UserService {
      }
 
      let headers= new HttpHeaders().set('Content-Type', 'application/json'); //Nueva instancia de http, este nos permite manipular los metodos en la url, los cuales recibiran un tipo de contenido Json
-
+     //envio el pedido al chef
      return this._http.post(this.url + 'registrar', obj, {headers: headers})
      //Aqui retornamos por medio del metodo post, la url/registrar junto a los datos ingresados por el usuario que se va a registrar
   }
 
 //Nos va arecibir un usuario y un get token nulo
 login(user,gettoken = null):Observable<any>{
-  let json = user;
-  if(gettoken != null){
-    user.gettoken = true;
+  let json = user; // recibimos un json con el usuario y contraseña
+  if(gettoken != null){ //si el token es diferente a null
+    user.gettoken = true; //significa que este usuario se ha inciado sesion correctamente
   }
  
   let headers = new HttpHeaders().set('Content-Type','application/json');
@@ -58,6 +58,8 @@ get_user(id):Observable<any>{
   let headers = new HttpHeaders().set('Content-Type','application/json');
   return this._http.get(this.url+'usuario/'+id,{headers:headers});
 }
+
+//historial de mensajes
 get_messages(de, para):Observable<any>{
   let headers = new HttpHeaders().set('Content-Type','application/json');
   return this._http.get(this.url+'message/'+de+'/'+ para,{headers:headers});
@@ -78,11 +80,11 @@ activar(id):Observable<any>{
 return this._http.put(this.url+'usuario/activar/'+id,{headers:headers});
 }
 
-
+//Guardamos el token en el localstorage, la memoria del computador, para que el sepa que ya hemos iniciado sesion con anterioridad
 getToken(){ // Obtener el token del usuario logeado
   let token = localStorage.getItem('token'); //Obtenemos el token que esta guardado en el navegador
   if(token){ //si hay un token en el localstorage que lo guarde en la variable
-    this.token = token;
+    this.token = token; //actualizamos el token
   }else{
     this.token = null; //Sino sera nulo
   }
@@ -91,7 +93,9 @@ getToken(){ // Obtener el token del usuario logeado
 }
 
 getIdentity(){ //obtener los datos del usuario logeado
+  //parseint parsefloat
   let identity = JSON.parse(localStorage.getItem('identity'));
+  //traigo la informacion del inicio de sesion
   if(identity){
     this.identity = identity;
   }
