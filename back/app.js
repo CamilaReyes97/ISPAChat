@@ -3,7 +3,7 @@ var bodyparser=require("body-parser"); //traer los metodos http
 var mongoose= require("mongoose"); //Me permite hacer la conexion a la base de datos
 
 //creamos el puerto
-var port= process.env.PORT || 4201;
+var port= process.env.PORT;
 
 //Inicializar express
 var express= require("express");
